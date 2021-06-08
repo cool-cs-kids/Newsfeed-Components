@@ -21,7 +21,7 @@ const data = [
     thirdParagraph: `Dagobah hutt jawa leia calamari ventress skywalker yoda. Binks wicket hutt coruscant sidious
         naboo ackbar tatooine. Hutt lars padmé darth. Maul solo darth darth jabba qui-gon chewbacca darth maul. Moff baba wicket
         han. C-3po antilles moff qui-gon ahsoka aayla dooku amidala. Palpatine droid amidala droid k-3po twi'lek padmé wookiee. Leia
-        moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`
+        moff calamari mon obi-wan. Solo grievous lando coruscant. Jinn darth palpatine obi-wan mon.`,
   },
   {
     title: 'Javascript and You, ES6',
@@ -41,7 +41,7 @@ const data = [
     thirdParagraph: `Toad-like smile Flourish and Blotts he knew I’d come back Quidditch World Cup. Fat Lady baubles banana fritters fairy lights 
         Petrificus Totalus. So thirsty, deluminator firs’ years follow me 12 inches of parchment. Head Boy start-of-term banquet Cleansweep Seven 
         roaring lion hat. Unicorn blood crossbow mars is bright tonight, feast Norwegian Ridgeback. Come seek us where our voices sound, we cannot 
-        sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`
+        sing above the ground, Ginny Weasley bright red. Fanged frisbees, phoenix tears good clean match.`,
   },
   {
     title: 'React vs Angular vs Vue',
@@ -69,7 +69,7 @@ const data = [
 
     thirdParagraph: `Gotta catch 'em all Horsea gym Ninjask Absol Sinnoh Poliwag. Gotta catch 'em all Youngster wants to fight Soda Pop Floatzel 
         Leech Life Seismitoad Ariados. Earthquake Pokemon Glitch City Tail Whip Skitty Ekans Dialga. Ut aliquip ex ea commodo consequat James 
-        Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`
+        Castform Lotad the power that's inside Burnt Berry Makuhita. Ghost Ariados Corphish Dusclops Golbat Gligar Zweilous.`,
   },
   {
     title: 'Professional Software Development in 2019',
@@ -85,14 +85,24 @@ const data = [
 
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
-          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
-  }
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`,
+  },
+  {
+    title: 'Sayo and Kai: "We\'re the best programming couple!"',
+    date: 'June 8th, 2021',
+    firstParagraph: `Kai is so cool and handsome and good at programming`,
+
+    secondParagraph: `Sayo is wifey-bifey; she is really good at programming at design!!!!`,
+
+    thirdParagraph: `wonderful!`,
+  },
 ];
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
   and returns a DOM node looking like the one below:
+  
 
   <div class="article">
     <h2>{title of the article}</h2>
@@ -114,3 +124,57 @@ const data = [
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+function articleMaker(articleObject) {
+  // make an article container div
+  const articleContainer = document.createElement('div');
+  // make an h2 for article div
+  const articleTitle = document.createElement('h2');
+  // make paragraph for date of article
+  const dateParagraph = document.createElement('p');
+  const textParagraph1 = document.createElement('p');
+  const textParagraph2 = document.createElement('p');
+  const textParagraph3 = document.createElement('p');
+  const expandButton = document.createElement('span');
+
+  // append to articleContainer
+  // can use forEach to refactor all of these appends
+  articleContainer.appendChild(articleTitle);
+  articleContainer.appendChild(dateParagraph);
+  articleContainer.appendChild(textParagraph1);
+  articleContainer.appendChild(textParagraph2);
+  articleContainer.appendChild(textParagraph3);
+  articleContainer.appendChild(expandButton);
+
+  // set attributes on articleContainer
+  articleContainer.classList.add('article');
+  articleTitle.textContent = articleObject.title;
+  dateParagraph.classList.add('date');
+  dateParagraph.textContent = articleObject.date;
+  textParagraph1.textContent = articleObject.firstParagraph;
+  textParagraph2.textContent = articleObject.secondParagraph;
+  textParagraph3.textContent = articleObject.thirdParagraph;
+  expandButton.classList.add('expandButton');
+  expandButton.textContent = '+';
+
+  // step 2) add event listener to the span, expandButton, which toggles class `article_open`
+
+  expandButton.addEventListener('click', () => {
+    articleContainer.classList.toggle('article-open');
+  });
+
+  // step 3 => return articleContainer
+  return articleContainer;
+}
+
+// step 4 => loop over data
+
+data.forEach((articleObj) => {
+  const article = articleMaker(articleObj);
+  console.log(article);
+
+  // we need to select the div with the class "articles"
+
+  const articlesDiv = document.querySelector('.articles');
+  console.log(articlesDiv);
+  articlesDiv.append(article);
+});
